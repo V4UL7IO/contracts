@@ -14,12 +14,15 @@ module.exports = {
   }
 };
 
-module.exports.promisify = (inner) =>
+promisify = (inner) =>
   new Promise((resolve, reject) =>
     inner((err, res) => {
       if (err) { reject(err) }
       resolve(res);
     })
 );
+
+module.exports.promisify = promisify;
+
 module.exports.getBalance = (account, at) => promisify(cb => web3.eth.getBalance(account, at, cb));
 module.exports.makeNumber = (number) => {return parseInt(number * 10 ** -18)};     

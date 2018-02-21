@@ -118,6 +118,20 @@ contract V4UL7Sale is Ownable, Timestamped {
 	}
 
 	/**
+	 * @dev Function that returns the round by number
+	 *
+	 * @return returns the round properties
+	 */
+	function fetchRound(uint256 _number) public constant returns (uint256 number, uint256 numTokensFrom, uint256 numTokensTo, uint256 price) {
+		RoundStruct memory round = rounds[_number];
+		
+		number = round.number;
+		numTokensFrom = round.numTokensFrom;
+		numTokensTo = round.numTokensTo;
+		price = round.price;
+	}
+
+	/**
 	 * @dev Function that returns the current round
 	 *
 	 * @return checks various conditions and returns the current round.
@@ -161,6 +175,23 @@ contract V4UL7Sale is Ownable, Timestamped {
 		return rounds[rounds.length - 1];
 	}
 
+
+	/**
+	 * @dev Function that returns the estimate token round by sending amount
+	 *
+	 * @param amount Amount of tokens expected
+	 *
+	 * @return checks various conditions and returns the estimate token round.
+	 */
+	function fetchEstimatedRound(uint256 amount) public constant returns (uint256 number, uint256 numTokensFrom, uint256 numTokensTo, uint256 price) {
+		RoundStruct memory round = getEstimatedRound(amount);
+		
+		number = round.number;
+		numTokensFrom = round.numTokensFrom;
+		numTokensTo = round.numTokensTo;
+		price = round.price;
+	}
+
 	/**
 	 * @dev Function that returns the maximum token round by sending amount
 	 *
@@ -174,6 +205,22 @@ contract V4UL7Sale is Ownable, Timestamped {
 				return rounds[i];
 			}
 		}
+	}
+
+	/**
+	 * @dev Function that returns the maximum token round by sending amount
+	 *
+	 * @param amount Amount of tokens expected
+	 *
+	 * @return checks various conditions and returns the maximum token round.
+	 */
+	function fetchMaximumRound(uint256 amount) public constant returns (uint256 number, uint256 numTokensFrom, uint256 numTokensTo, uint256 price) {
+		RoundStruct memory round = getMaximumRound(amount);
+		
+		number = round.number;
+		numTokensFrom = round.numTokensFrom;
+		numTokensTo = round.numTokensTo;
+		price = round.price;
 	}
 
 	/**
